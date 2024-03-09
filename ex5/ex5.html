@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Validation</title>
+<style>
+  .form-group {
+    margin-bottom: 10px;
+  }
+</style>
+<script>
+window.addEventListener('DOMContentLoaded', (event) => {
+  document.getElementById('name').addEventListener('input', validateName);
+  document.getElementById('age').addEventListener('input', validateAge);
+  document.getElementById('email').addEventListener('input', validateEmail);
+  document.getElementById('continent').addEventListener('input', validateContinent);
+});
+
+function validateName() {
+  var name = document.getElementById('name').value.trim();
+  if (!/^[a-zA-Z\s]*$/.test(name)) {
+    document.getElementById('nameError').innerText = "The name is not original enough";
+  } else {
+    document.getElementById('nameError').innerText = "";
+  }
+}
+
+function validateAge() {
+  var age = document.getElementById('age').value;
+  var ageError = document.getElementById('ageError');
+  if (age < 18) {
+    ageError.innerText = "Ahh, " + age + ", not a wise age";
+    ageError.style.color = "red";
+  } else {
+    ageError.innerText = "Ahh, " + age + ", a wise age";
+    ageError.style.color = "green";
+  }
+}
+
+function validateEmail() {
+  var email = document.getElementById('email').value.trim();
+  if (email === "") {
+    document.getElementById('emailError').innerText = "Email is required";
+  } else {
+    document.getElementById('emailError').innerText = "";
+  }
+}
+
+function validateContinent() {
+  var continent = document.getElementById('continent').value;
+  if (continent === "") {
+    document.getElementById('continentError').innerText = "Continent is required";
+  } else {
+    document.getElementById('continentError').innerText = "";
+  }
+}
+</script>
+</head>
+<body>
+
+<form name="myForm" onsubmit="return validateForm()" method="post">
+  <div class="form-group">
+    Name: <input type="text" id="name" name="name">
+    <span id="nameError" style="color: red;"></span>
+  </div>
+  <div class="form-group">
+    Age: <input type="number" id="age" name="age">
+    <span id="ageError" style="color: red;"></span>
+  </div>
+  <div class="form-group">
+    Birthdate: <input type="date" name="birthdate">
+  </div>
+  <div class="form-group">
+    Email: <input type="email" id="email" name="email">
+    <span id="emailError" style="color: red;"></span>
+  </div>
+  <div class="form-group">
+    Continent:
+    <select id="continent" name="continent">
+      <option value="">Select</option>
+      <option value="Africa">Africa</option>
+      <option value="Antarctica">Antarctica</option>
+      <option value="Asia">Asia</option>
+      <option value="Europe">Europe</option>
+      <option value="North America">North America</option>
+      <option value="Oceania">Oceania</option>
+      <option value="South America">South America</option>
+    </select>
+    <span id="continentError" style="color: red;"></span>
+  </div>
+  <div class="form-group">
+    Are you cool?
+    <input type="radio" name="cool" value="yes"> Yes
+    <input type="radio" name="cool" value="no"> No
+  </div>
+  <div class="form-group">
+    What 2 colors do you like?
+    <br>
+    <input type="checkbox" name="colors" value="red"> Red
+    <input type="checkbox" name="colors" value="orange"> Orange
+    <input type="checkbox" name="colors" value="yellow"> Yellow
+    <input type="checkbox" name="colors" value="green"> Green
+    <input type="checkbox" name="colors" value="purple"> Purple
+  </div>
+  <div class="form-group">
+    What do you like?
+    <br>
+    <input type="radio" name="like" value="CodeIgniter"> CodeIgniter
+    <input type="radio" name="like" value="fuel"> Fuel
+    <input type="radio" name="like" value="Kohana"> Kohana
+    <input type="radio" name="like" value="Laravel"> Laravel
+    <input type="radio" name="like" value="zend"> Zend
+  </div>
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+function validateForm() {
+  var cool = document.querySelector('input[name="cool"]:checked');
+  if (!cool) {
+    alert("Are you cool? is required");
+    return false;
+  }
+  
+  var colors = document.querySelectorAll('input[name="colors"]:checked');
+  if (colors.length < 2) {
+    alert("Please select 2 colors");
+    return false;
+  }
+  
+  var like = document.querySelector('input[name="like"]:checked');
+  if (!like) {
+    alert("What do you like? is required");
+    return false;
+  }
+}
+</script>
+
+</body>
+</html>
